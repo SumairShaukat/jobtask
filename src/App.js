@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import Loader from "./components/organisms/loader";
+import Router from "./router";
 
 function App() {
+  // Hooks
+  const [loader, setLoader] = useState(true);
+  // Variable
+  const loading = useSelector((state) => state?.Auth?.settings?.loader);
+  // Effect
+  useEffect(() => {
+    setLoader(loading);
+  }, [loading]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      {loader && <Loader />}
+      <Router />
+    </BrowserRouter>
   );
 }
 
